@@ -4,21 +4,20 @@ title: About Me
 permalink: /about/
 ---
 ![Amirabbas Asadi](/assets/img/amirabbas.png){: style="float: left; margin-bottom: 1em; max-width:200px; border-radius: 50%"}
-<p>My name is Amirabbas Asadi. Currently I'm an undergraduate computer engineering student and independent researcher interested in computer science and mathematics.</p>
+<p>My name is Amirabbas Asadi. Currently I'm an undergraduate computer engineering student and independent researcher interested in computer science.</p>
 mail : amir137825@gmail.com
 <div style="clear: both; margin-bottom:3em"></div>
 
 ## Research Interests
-- Machine Learning & Deep Learning
-- Probabilistic Models & Bayesian Methods
-- Applied Optimization
-- Designing Programming Languages  
+- Probabilistic Machine Learning
+- Reinforcement Learning and Multi-Agent Systems
+- Computational Linguistics
+- Scientific Computing & Numerical Methods
 
 ## Technical Skills
 - **C/C++**  
     - Familiar with scientific libraries : GSL, Eigen, CGAL, GMP and a few others 
     - Familiar with parallel programming (CPU and CUDA)
-    - Familiar with real-time simulation
     - Other libraries : Qt, Boost, OpenCV, Flex, Bison
     - GCC, CMake
 
@@ -28,7 +27,7 @@ mail : amir137825@gmail.com
     - Image Processing using OpenCV
     - Text mining & Web scrapping
 
-- Familiar with **R** for statistical models and data visualization
+- Familiar with **R** for using statistical models and data visualization
 - **SQL**
 - **Linux**, basic **Bash** script   
 - Git
@@ -36,12 +35,17 @@ mail : amir137825@gmail.com
 
 ## My Projects and Publications
 * C++ Mathematical Optimization Library (C++) [[code](https://github.com/amirabbasasadi/Babai)]
+* Short-Term Forecasting of Uncertain Parameters for Virtual Power Plants [[paper](https://ieeexplore.ieee.org/document/9617792)]
 * Satisfiability Analyzer for a type of Temporal Logic (C++) [[paper](https://sites.kowsarpub.com/mcj/articles/98204.html)]
 * Free Persian OCR Dataset [[dataset](https://github.com/amirabbasasadi/shotor)]
 * A Simple Persian Word-Level OCR using RNN (Python, Pytorch, OpenCV) [[code](https://github.com/amirabbasasadi/PersianOCR)]
 * Persian News Clustering [[video](https://www.aparat.com/v/Tetgu)]
+* A Python package for Time Series Augmentation using Deep Generative Models [[github](https://github.com/DrSasanBarak/AugmentTS)]
+* A distributed crawling system for indexing web pages in Python
+* A query language for document retrieval in Python
 
 ## My Presentations and Video Tutorials
+* Transformers for Machine Translation
 * An Introduction to Probabilistic Programming for AI [[slides](https://www.linkedin.com/posts/amirabbas-asadi-42a2778a_probabilistic-programming-activity-6783467563901886464-wkH8)]
 * Social Network Data Analysis using Neo4j (in Persian) [[videos](https://www.aparat.com/playlist/343791), [materials](https://github.com/amirabbasasadi/Social-Network-Data-Analysis)]
 * Python for Data Mining (9 sessions in Persian) [[videos](https://www.aparat.com/playlist/682746), [materials](https://cw1.basu.ac.ir/courses/1461)]
