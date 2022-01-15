@@ -4,6 +4,15 @@ title:  "Having fun with Computer Vision and Physics"
 date:   2021-06-03
 categories: vision python
 ---
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 Hi everyone, In my first blog post I'm going to explain how to combine computer vision and a little physics to create a simple environment for Augmented Reality. A few days ago I posted this video on LinkedIn:
  <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6803258084136419328?compact=1" allowfullscreen="" title="Embedded post" width="504" height="284" frameborder="0"></iframe> 
  

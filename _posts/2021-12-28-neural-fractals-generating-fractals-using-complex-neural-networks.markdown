@@ -4,6 +4,15 @@ title:  "Neural Fractals : Generating Fractals Using Complex Valued Neural Netwo
 date:   2021-12-28
 categories: mathematics deeplearning
 ---
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 Recurrent Neural Networks (RNN) have demonstrated a significant ability of learning complicated dynamics So I wanted to check can we use them to generate fractals?   
 ## Mandelbrot Set
 A simple however not simplest way to see a fractal is trying to plot the members of the Mandelbrot set in the complex plane. But what is the Mandelbrot set? consider a complex function $f_c(z) = z^2 + c$ then a complex number c is a member of Mandelbrot set if the following sequence does not diverge to infinity.  

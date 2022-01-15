@@ -2,8 +2,18 @@
 layout: post
 title:  "Neural Ordinary Differential Equations: Continuous Depth"
 date:   2022-01-15
+usemathjax: true
 categories: deeplearning
 ---
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ## Introduction  
 Neural Ordinary Differential Equations allow you to define neural networks with continuous depth. Apart from theoretically being interesting, using such models you can define continuous time series models for forecasting or interpolation or continuous normalizing flows. 
 ![Continuous Depth](/assets/img/post_3/cd.png)    
