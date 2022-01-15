@@ -10,9 +10,15 @@ mail : amir137825@gmail.com
 
 ## Research Interests
 - Probabilistic Machine Learning
+    - Probabilistic Programming
+    - Generative Models
+    - Approximate Inference
+    - Gaussian Processes
 - Reinforcement Learning and Multi-Agent Systems
-- Computational Linguistics
 - Scientific Computing & Numerical Methods
+- Other Interests:
+    - Symbolic Computations
+    - Machine Learning and Dynamical Systems
 
 ## Technical Skills
 - **C/C++**  
@@ -22,23 +28,27 @@ mail : amir137825@gmail.com
     - GCC, CMake
 
 - **Python**
-    - Scikit-Learn, Scipy, Numpy, Pandas, Matplotlib, Seaborn 
-    - Pytorch, Pyro
-    - Image Processing using OpenCV
+    - Machine Learning Libraries : Scikit-Learn, Scipy, Numpy, Pandas, XGBoost, ...
+    - Deep Learning : **PyTorch**
+    - Probabilistic Programming: **Pyro**
+    - Image Processing using **OpenCV**
     - Text mining & Web scrapping
+    - Matplotlib, Seaborn, Plotly
 
 - Familiar with **R** for using statistical models and data visualization
+- Familiar with **Julia**
 - **SQL**
 - **Linux**, basic **Bash** script   
 - Git
 
 
 ## My Projects and Publications
+* NeuralFractal, A Visual Exploration of Dynamical Systems Defined by Neural Networks [[Homepage](https://amirabbasasadi.github.io/neural-fractal/) [GitHub](https://github.com/amirabbasasadi/neural-fractal)]
 * C++ Mathematical Optimization Library (C++) [[code](https://github.com/amirabbasasadi/Babai)]
 * Short-Term Forecasting of Uncertain Parameters for Virtual Power Plants [[paper](https://ieeexplore.ieee.org/document/9617792)]
 * Satisfiability Analyzer for a type of Temporal Logic (C++) [[paper](https://sites.kowsarpub.com/mcj/articles/98204.html)]
 * Free Persian OCR Dataset [[dataset](https://github.com/amirabbasasadi/shotor)]
-* A Simple Persian Word-Level OCR using RNN (Python, Pytorch, OpenCV) [[code](https://github.com/amirabbasasadi/PersianOCR)]
+* A Simple Persian Word-Level OCR using RNN (Python, PyTorch, OpenCV) [[code](https://github.com/amirabbasasadi/PersianOCR)]
 * Persian News Clustering [[video](https://www.aparat.com/v/Tetgu)]
 * A Python package for Time Series Augmentation using Deep Generative Models [[github](https://github.com/DrSasanBarak/AugmentTS)]
 * A distributed crawling system for indexing web pages in Python
