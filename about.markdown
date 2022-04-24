@@ -4,7 +4,7 @@ title: About Me
 permalink: /about/
 ---
 ![Amirabbas Asadi](/assets/img/amirabbas.png){: style="float: left; margin-bottom: 1em; max-width:200px; border-radius: 50%"}
-<p>My name is Amirabbas Asadi. Currently I'm an undergraduate computer engineering student and independent researcher interested in computer science.</p>
+<p>My name is Amirabbas Asadi. Currently I'm an independent researcher interested in computer science and mathematics and looking for a MSc position or a direct PhD.</p>
 mail : amir137825@gmail.com
 <div style="clear: both; margin-bottom:3em"></div>
 
@@ -30,7 +30,7 @@ mail : amir137825@gmail.com
 - **Python**
     - Machine Learning Libraries : Scikit-Learn, Scipy, Numpy, Pandas, XGBoost, ...
     - Deep Learning : **PyTorch**
-    - Probabilistic Programming: **Pyro**
+    - Probabilistic Programming: **Pyro**, **PyMC3**
     - Image Processing using **OpenCV**
     - Text mining & Web scrapping
     - Matplotlib, Seaborn, Plotly
@@ -55,12 +55,13 @@ mail : amir137825@gmail.com
 * A query language for document retrieval in Python
 
 ## My Presentations and Video Tutorials
+* Bayesian Machine Learning [[slides](https://www.linkedin.com/posts/amirabbas-asadi_bayesian-machine-learning-activity-6912468349071364096-K_6m?utm_source=linkedin_share&utm_medium=member_desktop_web), [video](https://youtu.be/oYQZRl8AB7U)]
 * Transformers for Machine Translation
 * An Introduction to Probabilistic Programming for AI [[slides](https://www.linkedin.com/posts/amirabbas-asadi-42a2778a_probabilistic-programming-activity-6783467563901886464-wkH8)]
-* Social Network Data Analysis using Neo4j (in Persian) [[videos](https://www.aparat.com/playlist/343791), [materials](https://github.com/amirabbasasadi/Social-Network-Data-Analysis)]
-* Python for Data Mining (9 sessions in Persian) [[videos](https://www.aparat.com/playlist/682746), [materials](https://cw1.basu.ac.ir/courses/1461)]
-* Time Series forecasting using Recurrent Neural Networks (in Persian) [[video](https://www.aparat.com/v/mZpo6)]
-* Feature Importance Analysis (in Persian) [[video](https://www.aparat.com/v/vYXp0)]
+* Social Network Data Analysis using Neo4j [[videos](https://www.aparat.com/playlist/343791), [materials](https://github.com/amirabbasasadi/Social-Network-Data-Analysis)]
+* Python for Data Mining (9 sessions) [[videos](https://www.aparat.com/playlist/682746), [materials](https://cw1.basu.ac.ir/courses/1461)]
+* Time Series forecasting using Recurrent Neural Networks [[video](https://www.aparat.com/v/mZpo6)]
+* Feature Importance Analysis [[video](https://www.aparat.com/v/vYXp0)]
 * Apache Lucene for Document Retrieval [[video](https://www.aparat.com/v/TQvKS)]
 * Image Recognition using Neural Networks [[part 1](https://www.aparat.com/v/XfvND), [part 2](https://www.aparat.com/v/1stNJ)]
 * Getting Started with Linux and GNU GCC for C++ programming [[part 1](https://www.aparat.com/v/6xrj8), [part 2](https://www.aparat.com/v/Iu1ak)]
