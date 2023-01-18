@@ -32,7 +32,7 @@ Before the emergence of deep learning, hand tracking was a difficult task. you h
 </figure> 
 
 ### Hand Tracking Using Your Own Model
-You can train your own neural network for hand tracking, this is not very hard and what you need is a dataset of hand images and corresponding landmarks and a deep learning framework like PyTorch or TensorFlow. I suggest you try it at least once. To do so you can see [this tutorial](https://pytorch.org/tutorials/beginner/data_loading_tutorial.html) for PyTorch. The tutorial is actually for pose estimation, however, you use a similar approach for hand tracking.
+You can train your own neural network for hand tracking, this is not very hard and what you need is a dataset of hand images and corresponding landmarks and a deep learning framework like PyTorch or TensorFlow. I suggest you try it at least once.
 ### Hand Tracking Using Mediapipe   
 Despite it is not so hard to train a model for hand tracking, you can use available pre-trained models. one of the greatest libraries that can be useful here is [Mediapipe](https://github.com/google/mediapipe) developed by Google. Mediapipe not only has a very accurate hand tracking model but also has other models for face detection, face mesh detection, pose estimation, and many other computer vision problems. We can use its hand tracking solution for our project. The hand tracking model in Mediapipe can detect and track the following landmarks of hand:
 <figure class="image">
