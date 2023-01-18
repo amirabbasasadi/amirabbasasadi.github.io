@@ -8,41 +8,49 @@ permalink: /about/
 mail : amir137825@gmail.com
 <div style="clear: both; margin-bottom:3em"></div>
 
-## Research Interests
-- Probabilistic Machine Learning
-    - Probabilistic Programming
-    - Generative Models
-    - Approximate Inference
-    - Gaussian Processes
-- Reinforcement Learning and Multi-Agent Systems
-- Scientific Computing & Numerical Methods
-- Other Interests:
-    - Symbolic Computations
-    - Machine Learning and Dynamical Systems
 
-## Technical Skills
-- **C/C++**  
-    - Familiar with scientific libraries : GSL, Eigen, CGAL, GMP and a few others 
-    - Familiar with parallel programming (CPU and CUDA)
-    - Other libraries : Qt, Boost, OpenCV, Flex, Bison
-    - GCC, CMake
 
-- **Python**
-    - Machine Learning Libraries : Scikit-Learn, Scipy, Numpy, Pandas, XGBoost, ...
-    - Deep Learning : **PyTorch**
-    - Probabilistic Programming: **Pyro**, **PyMC3**
-    - Image Processing using **OpenCV**
-    - Text mining & Web scrapping
-    - Matplotlib, Seaborn, Plotly
+## 📔 Research Interests
+- **Probabilistic Machine Learning**
+  - Probabilistic Graphical Models
+  - Probabilistic Programming
+  - Energy-Based Models
+  - Deep Generative Models : VAE, Normalizing Flows, Diffusion Models
+  - Approximate Bayesian Inference (MCMC, VI)
+- **Reinforcement Learning** & Multi-Agent Systems
+- **High-Performance Scientific Computing**
+  - Parallel and Distributed Programming  
+  - Simulation
+  - Numerical Linear Algebra
+  - Developing ODE/PDE/SDE solvers
 
-- Familiar with **R** for using statistical models and data visualization
-- Familiar with **Julia**
-- **SQL**
-- **Linux**, basic **Bash** script   
-- Git
+## 👨‍💻 Technical Skills
+- Programming : **C/C++**, **Julia**, **Python**
+- Parallel and Distributed Programming
+  - CPU Parallel Programming: **OpenMP**, **TBB**
+  - GPU Programming: **CUDA**, Thrust
+  - Distributed Programming: **MPI**
+  - Hybrid Parallelism
+- Deep Learning: **PyTorch**, Flux
+- Graph Learning: PyTorch Geometric
+- Image Processing: **OpenCV**
+- Probabilistic Programming: **Pyro**, PyMC3, JAGS
+- Physics Simulation
+- 2D/3D Data Visualization
+- Git, Linux and Bash script
+- LaTeX
 
+## 👨‍🎓 Education
+- BSc Computer Engineering
+  - Graduation: 2022
+  - GPA: 18.77/20.0, 3.92/4.0  
+ 
+I'm Looking for a Master's position in Computer Science!
 
 ## My Projects and Publications
+* Zagros: A Parallel and Distributed Optimization for HPC Clusters [[GitHub](https://github.com/amirabbasasadi/RockyML)]  
+* AugmentTS: Time Series Data Augmentation using Deep Generative Models [[GitHub](https://github.com/DrSasanBarak/AugmentTS)]  
+* MetaTS: Meta-Learning for Global Time Series Forecasting [[GitHub](https://github.com/DrSasanBarak/metats)]  
 * NeuralFractal, A Visual Exploration of Dynamical Systems Defined by Neural Networks [[Homepage](https://amirabbasasadi.github.io/neural-fractal/) [GitHub](https://github.com/amirabbasasadi/neural-fractal)]
 * C++ Mathematical Optimization Library (C++) [[code](https://github.com/amirabbasasadi/Babai)]
 * Short-Term Forecasting of Uncertain Parameters for Virtual Power Plants [[paper](https://ieeexplore.ieee.org/document/9617792)]
