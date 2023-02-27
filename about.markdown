@@ -4,7 +4,7 @@ title: About Me
 permalink: /about/
 ---
 ![Amirabbas Asadi](/assets/img/amirabbas.png){: style="float: left; margin-bottom: 1em; max-width:200px; border-radius: 50%"}
-<p>My name is Amirabbas Asadi. Currently I'm an independent researcher interested in computer science and mathematics and looking for a MSc position or a direct PhD.</p>
+<p>I'm Amirabbas. Currently I'm a junior independent researcher interested in AI, computer science, and mathematics.</p>
 mail : amir137825@gmail.com
 <div style="clear: both; margin-bottom:3em"></div>
 
