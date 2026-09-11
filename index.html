@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Amirabbas Asadi | Probabilistic machine learning, Bayesian inference, and stochastic mathematics.">
+
+    <title>Amirabbas Asadi</title>
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #0a0a0a;
+            --text-muted: #5c5c5c;
+            --text-faint: #858585;
+            --border-color: #dcdcdc;
+            --surface-color: #f7f7f7;
+
+            --font-main: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Helvetica, Arial, sans-serif;
+
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                "Liberation Mono", monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ::selection {
+            color: #ffffff;
+            background: #0a0a0a;
+        }
+
+        ::-moz-selection {
+            color: #ffffff;
+            background: #0a0a0a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100%;
+            overflow-x: hidden;
+            color: var(--text-color);
+            background: var(--bg-color);
+            font-family: var(--font-main);
+            font-size: 16px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        a {
+            color: inherit;
+            text-decoration-line: underline;
+            text-decoration-color: #9b9b9b;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            transition:
+                color 0.2s ease,
+                text-decoration-color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--text-muted);
+            text-decoration-color: var(--text-color);
+        }
+
+        em {
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        /*
+         * Persistent visualization
+         *
+         * The same canvas remains fixed behind the hero and the main content.
+         * This avoids restarting the particles when the user leaves the hero.
+         */
+        .page-visual {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        #langevinCanvas {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            width: 100%;
+            min-height: 100svh;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: min(68%, 920px);
+            min-height: 100svh;
+            padding: 5.5rem clamp(2rem, 7vw, 6rem);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 1) 58%,
+                    rgba(255, 255, 255, 0.94) 78%,
+                    rgba(255, 255, 255, 0) 100%
+                );
+        }
+
+        /* Profile */
+        .profile-img {
+            width: 168px;
+            height: 168px;
+            margin-bottom: 1.75rem;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--text-color);
+            font-family: var(--font-main);
+        }
+
+        h1 {
+            margin-bottom: 0.8rem;
+            font-size: clamp(2.6rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.055em;
+        }
+
+        .subtitle {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.12rem;
+            font-weight: 450;
+            line-height: 1.55;
+        }
+
+        .subtitle-position {
+            color: var(--text-faint);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Email */
+        .contact-email {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.7rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .contact-label {
+            color: var(--text-faint);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .email-address {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        /* Social links */
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 1.1rem;
+            margin-bottom: 2.75rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .links a {
+            padding: 0;
+            border: 0;
+            text-decoration-color: transparent;
+        }
+
+        .links a:hover {
+            color: var(--text-muted);
+            text-decoration-color: var(--text-muted);
+        }
+
+        /* Research interests */
+        .interests {
+            max-width: 650px;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .interests h3 {
+            margin-bottom: 1rem;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .interests ul {
+            display: grid;
+            gap: 0.8rem;
+            list-style: none;
+        }
+
+        .interests li {
+            display: grid;
+            grid-template-columns: minmax(150px, 0.8fr) minmax(0, 1.5fr);
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.91rem;
+            line-height: 1.5;
+        }
+
+        .interests li strong {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        /*
+         * Main content
+         *
+         * On desktop the main column occupies the left side. The background
+         * fades to transparent so that the fixed canvas remains visible on
+         * the right.
+         */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: min(72%, 1040px);
+            min-height: 100vh;
+            margin: 0;
+            padding:
+                6rem clamp(4rem, 8vw, 8rem)
+                4rem clamp(2rem, 7vw, 6rem);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 1) 0%,
+                    rgba(255, 255, 255, 1) 82%,
+                    rgba(255, 255, 255, 0.94) 90%,
+                    rgba(255, 255, 255, 0) 100%
+                );
+        }
+
+        .container > section {
+            max-width: 760px;
+            margin-bottom: 5rem;
+        }
+
+        .container > section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 3rem;
+        }
+
+        h2 {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: clamp(1.6rem, 3vw, 2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+        }
+
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            margin-top: 0.2em;
+            background: var(--border-color);
+        }
+
+        .about-text {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        .item {
+            margin-bottom: 2.25rem;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .item-title {
+            font-size: 1.04rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .item-meta {
+            flex-shrink: 0;
+            color: var(--text-faint);
+            font-size: 0.83rem;
+            font-weight: 500;
+        }
+
+        .item-desc {
+            margin-top: 0.45rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        ul.bullet-list {
+            margin: 0.65rem 0 0 1.15rem;
+            color: var(--text-muted);
+            font-size: 0.94rem;
+        }
+
+        ul.bullet-list li {
+            margin-bottom: 0.45rem;
+            padding-left: 0.15rem;
+        }
+
+        .publication-list {
+            margin-left: 0 !important;
+            list-style: none;
+        }
+
+        .publication-list li {
+            margin-bottom: 1.5rem !important;
+            padding-left: 0 !important;
+        }
+
+        /* Tablet and mobile */
+        @media (max-width: 900px) {
+            .page-visual {
+                opacity: 0.28;
+            }
+
+            .hero-content {
+                width: 100%;
+                min-height: 100svh;
+                padding: 4rem 2rem;
+                background: rgba(255, 255, 255, 0.9);
+            }
+
+            .container {
+                width: 100%;
+                padding: 5rem 2rem;
+                background: rgba(255, 255, 255, 0.94);
+            }
+
+            .container > section {
+                max-width: 760px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .profile-img {
+                width: 135px;
+                height: 135px;
+            }
+
+            .item-header {
+                display: block;
+            }
+
+            .item-meta {
+                display: block;
+                margin-top: 0.2rem;
+            }
+
+            .interests li {
+                grid-template-columns: 1fr;
+                gap: 0.15rem;
+            }
+
+            .container {
+                padding: 4rem 1.5rem;
+            }
+
+            .container > section {
+                margin-bottom: 4rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .page-visual {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- One persistent canvas for the complete page -->
+    <div class="page-visual" aria-hidden="true">
+        <canvas id="langevinCanvas"></canvas>
+    </div>
+
+    <!-- Header -->
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <img
+                src="assets/portrait.jpg"
+                alt="Amirabbas Asadi"
+                class="profile-img"
+                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23e0e0e0\'/%3E%3C/svg%3E'">
+
+            <h1>Amirabbas Asadi</h1>
+
+            <div class="subtitle">
+                Probabilistic Machine Learning<br>
+                <span class="subtitle-position">
+                    Research Scientist at <a style="text-decoration:none" href="https://unqi.org" target="_blank">UnQi</a>
+                </span>
+            </div>
+
+            <div class="contact-email">
+                <span class="contact-label">Email</span>
+                <a class="email-address" href="mailto:amir.asadi78@sharif.edu">
+                    amir.asadi78@sharif.edu
+                </a>
+            </div>
+
+            <div class="links" aria-label="Professional links">
+                <a
+                    href="https://www.linkedin.com/in/amirabbas-asadi/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    LinkedIn
+                </a>
+
+                <a
+                    href="https://github.com/amirabbasasadi"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    GitHub
+                </a>
+
+                <a
+                    href="https://scholar.google.com/citations?user=cMNhb84AAAAJ&hl=en"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Google Scholar
+                </a>
+            </div>
+
+            <div class="interests">
+                <h3>Research Interests</h3>
+
+                <ul>
+                    <li>
+                        <strong>Probabilistic AI</strong>
+                        <span>
+                            Probabilistic programming, Bayesian inference, geometry and physics of uncertainty
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Sequential Decision-Making</strong>
+                        <span>
+                            Bayesian reinforcement learning, active inference
+                        </span>
+                    </li>
+
+                    <li>
+                        <strong>Stochastic Mathematics</strong>
+                        <span>
+                            Gradient flows, optimal transport, information geometry, mean-field games
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container">
+
+       
+
+        <section id="education">
+            <h2>Education</h2>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">
+                        Sharif University of Technology
+                    </span>
+
+                    <span class="item-meta">
+                        Sept 2023 – Sept 2026
+                    </span>
+                </div>
+
+                <div class="item-desc">
+                    M.Sc. in Applied Mathematics
+                    (Stochastic Mathematics and Data Science)
+                </div>
+
+                <ul class="bullet-list">
+                    <li>
+                        Thesis: Rethinking Bayesian Reinforcement Learning [<a href="https://bayesianrl.github.io/" target="_blank">Homepage</a>]
+                    </li>
+                </ul>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Bu-Ali Sina University</span>
+                    <span class="item-meta">Sept 2017 – March 2022</span>
+                </div>
+
+                <div class="item-desc">
+                    B.Sc. in Computer Engineering
+                </div>
+
+                <ul class="bullet-list">
+                    <li>
+                        Final Project: Creating Artificial Languages in
+                        Multi-Agent Systems
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2>Publications &amp; Preprints</h2>
+
+            <ul class="bullet-list publication-list">
+                <li>
+                    <strong>
+                        Retail Time Series Forecasting Using An Automated Deep
+                        MetaLearning Framework
+                    </strong>
+                    <br>
+                    E. Joshaghani, S. Barak, <em>A. Asadi</em>, A. Mirafzali.
+                    <br>
+                    <span class="item-meta">Preprint</span>
+                </li>
+
+                <li>
+                    <strong>
+                        Short-Term Forecasting of Uncertain Parameters for
+                        Virtual Power Plants
+                    </strong>
+                    <br>
+                    M. Abbasi, <em>A. Asadi</em>, M. E. BenElghali,
+                    R. Zerrougui.
+                    <br>
+                    <span class="item-meta">IEEE CAMAD 2021</span>
+                </li>
+
+                <li>
+                    <strong>
+                        Satisfiability Checking of Clinical Practice Guidelines
+                        Using an Analyzer
+                    </strong>
+                    <br>
+                    Y. Sanati, <em>A. Asadi</em>.
+                    <br>
+                    <span class="item-meta">Modern Care Journal, 2019</span>
+                </li>
+            </ul>
+        </section>
+
+
+        <section id="teaching">
+            <h2>Talks &amp; Teaching</h2>
+        
+            <ul class="bullet-list">
+                <li>
+                    <strong>Probabilistic Machine Learning with Julia</strong> &mdash;
+                    Kharazmi University, Faculty of Finance (2025).
+                    <a href="https://www.youtube.com/playlist?list=PLpIquQ_DMJSFr3_SXHe3ZbiZInTFaXugb" target="_blank" rel="noopener noreferrer">[YouTube Videos]</a>
+                </li>
+        
+                <li>
+                    <strong>Probabilistic Programming for Machine Learning</strong> &mdash;
+                    Sharif University of Technology (2024).
+                    <a href="https://lnkd.in/p/dti2FVSr" target="_blank" rel="noopener noreferrer">[Slides]</a>
+                    <a href="https://www.aparat.com/v/byde90e" target="_blank" rel="noopener noreferrer">[Video]</a>
+                </li>
+        
+                <li>
+                    <strong>Deep Probabilistic Modeling with Normalizing Flows</strong> &mdash;
+                    Sharif University of Technology (2023).
+                    <a href="https://lnkd.in/p/dj_pE7S7" target="_blank" rel="noopener noreferrer">[Slides]</a>
+                </li>
+        
+                <li>
+                    <strong>Bayesian Machine Learning</strong> &mdash;
+                    Online lecture (2022).
+                    <a href="https://lnkd.in/p/dG6fquqd" target="_blank" rel="noopener noreferrer">[Slides]</a>
+                </li>
+
+                <li>
+                    <strong>Probabilistic Programming for AI</strong> &mdash;
+                    Online lecture (2021).
+                    <a href="https://lnkd.in/p/d-Mk_9JH" target="_blank" rel="noopener noreferrer">[Slides]</a>
+                </li>
+
+                <li>
+                    <strong>Time Series Forecasting Using RNNs</strong> &mdash;
+                    Online lecture.
+                    <a href="https://www.aparat.com/v/mZpo6" target="_blank" rel="noopener noreferrer">[Slides]</a>
+                </li>
+
+        
+                <li>
+                    <strong>Teaching Assistant</strong>:
+                    Deep Generative Models
+                    (Sharif University of Technology).
+                </li>
+                <li>
+                    <strong>Teaching Assistant</strong>:
+                    Data Mining, Data Structures, Advanced C++ Programming
+                    (Bu-Ali Sina University).
+                </li>
+            </ul>
+        </section>
+        
+
+        <section id="honors">
+            <h2>Honors &amp; Awards</h2>
+
+            <ul class="bullet-list">
+                <li>
+                    <strong>1st Place:</strong>
+                    Iran Annual AI Award 2024
+                    (Brain Abnormality MRI Image Classification).
+                </li>
+
+                <li>
+                    <strong>National Rank 4:</strong>
+                    Graduate Entrance Exam in Mathematics
+                    (4th Data Science, 5th Cryptography).
+                </li>
+
+                <li>
+                    <strong>Silver Medal:</strong>
+                    Optimizer 2022 (Sharif University of Technology),
+                    Multi-Manifold Clustering via random walks.
+                </li>
+
+                <li>
+                    <strong>2nd Place:</strong>
+                    The Second National fNIRS Data Analysis Competition (focusing
+                    on brain computer interface systems to help patients with movement disorders)
+                    held by National Brain Mapping Lab 2022
+                </li>
+
+                <li>
+                    <strong>1st Place:</strong>
+                    West Iran Collegiate Programming Contest (WICPC) 2018.
+                </li>
+            </ul>
+        </section>
+
+        <section id="projects">
+            <h2>Selected Projects &amp; Open Source</h2>
+
+            <div class="item">
+                <div class="item-title">
+                    <a
+                        href="https://bayesianrl.github.io/NonparametricVI.jl"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        NonparametricVI.jl
+                    </a>
+                </div>
+
+                <div class="item-desc">
+                    Particle-based and nonparametric Variational Inference
+                    framework in Julia.
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-title">
+                    <a
+                        href="https://amirabbasasadi.github.io/RockyML"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Zagros
+                    </a>
+                </div>
+
+                <div class="item-desc">
+                    An optimization framework for HPC clusters leveraging C++,
+                    MPI, TBB, and a custom DSL (Dena).
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-title">
+                    <a
+                        href="https://github.com/DrSasanBarak/metats"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        MetaTS
+                    </a>
+
+                    &amp;
+
+                    <a
+                        href="https://github.com/DrSasanBarak/AugmentTS"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        AugmentTS
+                    </a>
+                </div>
+
+                <div class="item-desc">
+                    Meta-learning for time-series forecasting and time-series
+                    augmentation using deep generative models.
+                </div>
+            </div>
+        </section>
+
+        <div class="item">
+            <div class="item-title">
+                <a
+                    href="https://amirabbasasadi.github.io/neural-fractal/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Neural Fractal
+                </a>
+            </div>
+
+            <div class="item-desc">
+                Generating fractals using complex-valued neural networks.
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        (() => {
+            "use strict";
+
+            const reducedMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+            if (reducedMotion) {
+                return;
+            }
+
+            const canvas = document.getElementById("langevinCanvas");
+            const context = canvas.getContext("2d", {
+                alpha: true,
+                desynchronized: true
+            });
+
+            const hero = document.querySelector(".hero");
+
+            let width = 0;
+            let height = 0;
+            let scale = 1;
+            let deviceScale = 1;
+
+            let targetTransport = 0;
+            let transport = 0;
+            let previousTransport = 0;
+
+            let lastFrameTime = 0;
+            let animationFrame = 0;
+
+            const particleCount = 76;
+            const maxTrailLength = 36;
+            const frameInterval = 1000 / 30;
+
+            /*
+             * Non-reversible component.
+             */
+            const skewStrength = 22;
+
+            function clamp(value, minimum, maximum) {
+                return Math.max(minimum, Math.min(maximum, value));
+            }
+
+            function lerp(a, b, amount) {
+                return a + (b - a) * amount;
+            }
+
+            function smoothStep(value) {
+                const t = clamp(value, 0, 1);
+                return t * t * (3 - 2 * t);
+            }
+
+            /*
+             * Source density:
+             *     two broad Gaussian components.
+             *
+             * Target density:
+             *     three smaller Gaussian components located lower in the
+             *     viewport.
+             *
+             * Every parameter is interpolated, so the density is transported
+             * continuously instead of being replaced abruptly.
+             */
+            function getMixture(value) {
+                const t = smoothStep(value);
+
+                return [
+                    {
+                        x: lerp(-1.0, -1.20, t),
+                        y: lerp(-1.0, 0.60, t),
+                        sigma: lerp(1.0, 0.66, t),
+                        weight: lerp(0.50, 0.36, t)
+                    },
+                    {
+                        x: lerp(1.0, 0.12, t),
+                        y: lerp(1.0, 1.52, t),
+                        sigma: lerp(1.0, 0.72, t),
+                        weight: lerp(0.50, 0.32, t)
+                    },
+                    {
+                        x: lerp(0.0, 1.25, t),
+                        y: lerp(0.0, 0.52, t),
+                        sigma: lerp(0.9, 0.62, t),
+
+                        /*
+                         * A nearly zero initial weight makes the third mode
+                         * appear gradually during transport.
+                         */
+                        weight: lerp(0.0001, 0.32, t)
+                    }
+                ];
+            }
+
+            /*
+             * Compute grad U(x), where U = -log(density).
+             */
+            function gradientOfPotential(x, y, mixture) {
+                let densitySum = 0;
+                let gradientX = 0;
+                let gradientY = 0;
+
+                for (let i = 0; i < mixture.length; i++) {
+                    const component = mixture[i];
+                    const variance = component.sigma * component.sigma;
+
+                    const dx = x - component.x;
+                    const dy = y - component.y;
+                    const squaredDistance = dx * dx + dy * dy;
+
+                    /*
+                     * The 1 / variance term accounts for the normalizing
+                     * constant of a two-dimensional isotropic Gaussian.
+                     */
+                    const density =
+                        (component.weight / variance) *
+                        Math.exp(-0.5 * squaredDistance / variance);
+
+                    densitySum += density;
+                    gradientX += density * dx / variance;
+                    gradientY += density * dy / variance;
+                }
+
+                const safeDensity = densitySum + 1e-12;
+
+                return {
+                    x: gradientX / safeDensity,
+                    y: gradientY / safeDensity
+                };
+            }
+
+            /*
+             * Four uniforms give a cheap approximately Gaussian random
+             * variable with unit variance.
+             */
+            function approximateGaussian() {
+                return (
+                    Math.random() +
+                    Math.random() +
+                    Math.random() +
+                    Math.random() -
+                    2
+                ) * 1.7320508075688772;
+            }
+
+            function getOriginX() {
+                if (width <= 900) {
+                    return width * 0.5;
+                }
+
+                /*
+                 * The visual moves slightly farther right as the main content
+                 * enters, leaving more room for the text column.
+                 */
+                return width * lerp(0.75, 0.80, transport);
+            }
+
+            function getOriginY() {
+                return height * 0.5;
+            }
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+
+                /*
+                 * Capping DPR prevents a large 3x or 4x canvas on high-density
+                 * displays while retaining adequate sharpness.
+                 */
+                deviceScale = Math.min(window.devicePixelRatio || 1, 1.5);
+
+                canvas.width = Math.round(width * deviceScale);
+                canvas.height = Math.round(height * deviceScale);
+
+                canvas.style.width = `${width}px`;
+                canvas.style.height = `${height}px`;
+
+                context.setTransform(
+                    deviceScale,
+                    0,
+                    0,
+                    deviceScale,
+                    0,
+                    0
+                );
+
+                scale = Math.min(width, height) / 6;
+
+                updateScrollTarget();
+            }
+
+            function updateScrollTarget() {
+                const heroHeight = hero.offsetHeight;
+
+                /*
+                 * Transport starts near the end of the hero and completes
+                 * during the first portion of the main content.
+                 */
+                const transportStart = heroHeight * 0.72;
+                const transportDistance = Math.max(
+                    window.innerHeight * 1.15,
+                    650
+                );
+
+                const rawProgress =
+                    (window.scrollY - transportStart) / transportDistance;
+
+                targetTransport = clamp(rawProgress, 0, 1);
+            }
+
+            /*
+             * Lightweight contour rendering.
+             *
+             * These are Gaussian iso-density rings rather than a full
+             * marching-squares computation. They make the changing target
+             * readable without recalculating a large density grid.
+             */
+            function drawDensityContours(mixture) {
+                const originX = getOriginX();
+                const originY = getOriginY();
+
+                context.save();
+                context.lineWidth = 1.15;
+
+                for (let i = 0; i < mixture.length; i++) {
+                    const component = mixture[i];
+
+                    if (component.weight < 0.012) {
+                        continue;
+                    }
+
+                    const centerX = originX + component.x * scale;
+                    const centerY = originY + component.y * scale;
+
+                    const weightVisibility = Math.min(
+                        1,
+                        component.weight * 2.4
+                    );
+
+                    const ringCount = 8;
+
+                    for (let ring = 0; ring < ringCount; ring++) {
+                        const radiusLevel = 0.48 + ring * 0.36;
+                        const radius =
+                            radiusLevel * component.sigma * scale;
+
+                        const ringFade =
+                            1 - ring / (ringCount + 1);
+
+                        const opacity =
+                            0.22 *
+                            weightVisibility *
+                            ringFade;
+
+                        context.beginPath();
+                        context.arc(
+                            centerX,
+                            centerY,
+                            radius,
+                            0,
+                            Math.PI * 2
+                        );
+
+                        context.strokeStyle =
+                            `rgba(0, 0, 0, ${opacity})`;
+
+                        context.setLineDash([5, 5]); 
+                        context.stroke();
+                        context.setLineDash([]);
+                    }
+                }
+
+                context.restore();
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = (Math.random() - 0.5) * 0.1;
+                    this.y = (Math.random() - 0.5) * 0.1;
+                    this.history = [];
+                }
+
+                transportBy(delta) {
+                    /*
+                     * This small common advection term makes the cloud visibly
+                     * travel with the moving density. The potential gradient
+                     * then performs the local rearrangement.
+                     */
+                    this.x += delta * 0.04;
+                    this.y += delta * 0.78;
+                }
+
+                reset(mixture) {
+                    let randomChoice = Math.random();
+                    let selected = mixture[0];
+
+                    for (let i = 0; i < mixture.length; i++) {
+                        randomChoice -= mixture[i].weight;
+
+                        if (randomChoice <= 0) {
+                            selected = mixture[i];
+                            break;
+                        }
+                    }
+
+                    this.x =
+                        selected.x +
+                        approximateGaussian() * selected.sigma * 0.2;
+
+                    this.y =
+                        selected.y +
+                        approximateGaussian() * selected.sigma * 0.2;
+
+                    this.history.length = 0;
+                }
+
+                update(mixture, elapsedMilliseconds) {
+                    this.history.push({
+                        x: this.x,
+                        y: this.y
+                    });
+
+                    if (this.history.length > maxTrailLength) {
+                        this.history.shift();
+                    }
+
+                    const frameScale = clamp(
+                        elapsedMilliseconds / 16.667,
+                        0.5,
+                        2.2
+                    );
+
+                    const dt = 0.001 * frameScale;
+                    const noiseScale = Math.sqrt(2 * dt) * 0.52;
+
+                    const gradient = gradientOfPotential(
+                        this.x,
+                        this.y,
+                        mixture
+                    );
+
+                    /*
+                     * Drift = -grad U + J grad U,
+                     * where J is a two-dimensional skew-symmetric matrix.
+                     */
+                    const driftX =
+                        -gradient.x +
+                        skewStrength * gradient.y;
+
+                    const driftY =
+                        -gradient.y -
+                        skewStrength * gradient.x;
+
+                    this.x +=
+                        driftX * dt +
+                        noiseScale * approximateGaussian();
+
+                    this.y +=
+                        driftY * dt +
+                        noiseScale * approximateGaussian();
+
+                    if (
+                        !Number.isFinite(this.x) ||
+                        !Number.isFinite(this.y) ||
+                        Math.abs(this.x) > 6 ||
+                        Math.abs(this.y) > 6
+                    ) {
+                        this.reset(mixture);
+                    }
+                }
+
+                draw() {
+                    const originX = getOriginX();
+                    const originY = getOriginY();
+
+                    if (this.history.length > 1) {
+                        context.beginPath();
+
+                        const start = this.history[0];
+
+                        context.moveTo(
+                            originX + start.x * scale,
+                            originY + start.y * scale
+                        );
+
+                        for (
+                            let i = 1;
+                            i < this.history.length;
+                            i++
+                        ) {
+                            const point = this.history[i];
+
+                            context.lineTo(
+                                originX + point.x * scale,
+                                originY + point.y * scale
+                            );
+                        }
+
+                        context.strokeStyle =
+                            "rgba(0, 0, 0, 0.26)";
+
+                        context.lineWidth = 1.35;
+                        context.lineCap = "round";
+                        context.lineJoin = "round";
+                        context.stroke();
+                    }
+
+                    context.beginPath();
+
+                    context.arc(
+                        originX + this.x * scale,
+                        originY + this.y * scale,
+                        2.35,
+                        0,
+                        Math.PI * 2
+                    );
+
+                    context.fillStyle = "rgba(0, 0, 0, 0.82)";
+                    context.fill();
+                }
+            }
+
+            const particles = Array.from(
+                { length: particleCount },
+                () => new Particle()
+            );
+
+            function render(timestamp) {
+                animationFrame = requestAnimationFrame(render);
+
+                /*
+                 * Rendering at approximately 30 FPS is sufficient for the
+                 * thin trails and significantly lowers CPU usage.
+                 */
+                if (
+                    lastFrameTime !== 0 &&
+                    timestamp - lastFrameTime < frameInterval
+                ) {
+                    return;
+                }
+
+                const elapsed =
+                    lastFrameTime === 0
+                        ? frameInterval
+                        : Math.min(timestamp - lastFrameTime, 45);
+
+                lastFrameTime = timestamp;
+
+                /*
+                 * Smoothly approach the scroll-selected density, so a fast
+                 * wheel movement does not cause an abrupt jump.
+                 */
+                const response =
+                    1 - Math.exp(-elapsed / 180);
+
+                transport +=
+                    (targetTransport - transport) * response;
+
+                const transportDelta =
+                    transport - previousTransport;
+
+                previousTransport = transport;
+
+                const mixture = getMixture(transport);
+
+                context.clearRect(0, 0, width, height);
+                drawDensityContours(mixture);
+
+                for (let i = 0; i < particles.length; i++) {
+                    const particle = particles[i];
+
+                    if (Math.abs(transportDelta) > 1e-6) {
+                        particle.transportBy(transportDelta);
+                    }
+
+                    particle.update(mixture, elapsed);
+                    particle.draw();
+                }
+            }
+
+            function handleVisibilityChange() {
+                if (document.hidden) {
+                    cancelAnimationFrame(animationFrame);
+                    animationFrame = 0;
+                    lastFrameTime = 0;
+                    return;
+                }
+
+                if (!animationFrame) {
+                    animationFrame = requestAnimationFrame(render);
+                }
+            }
+
+            window.addEventListener("scroll", updateScrollTarget, {
+                passive: true
+            });
+
+            window.addEventListener("resize", resizeCanvas, {
+                passive: true
+            });
+
+            document.addEventListener(
+                "visibilitychange",
+                handleVisibilityChange
+            );
+
+            resizeCanvas();
+
+            /*
+             * If the browser restored a scrolled page, start from the
+             * corresponding density rather than animating from zero.
+             */
+            transport = targetTransport;
+            previousTransport = transport;
+
+            animationFrame = requestAnimationFrame(render);
+        })();
+    </script>
+</body>
+
+</html>
