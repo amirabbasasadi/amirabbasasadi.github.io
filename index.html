@@ -84,9 +84,6 @@
 
         /*
          * Persistent visualization
-         *
-         * The same canvas remains fixed behind the hero and the main content.
-         * This avoids restarting the particles when the user leaves the hero.
          */
         .page-visual {
             position: fixed;
@@ -125,12 +122,10 @@
             padding: 5.5rem clamp(2rem, 7vw, 6rem);
 
             background:
-                linear-gradient(
-                    90deg,
+                linear-gradient(90deg,
                     rgba(255, 255, 255, 1) 58%,
                     rgba(255, 255, 255, 0.94) 78%,
-                    rgba(255, 255, 255, 0) 100%
-                );
+                    rgba(255, 255, 255, 0) 100%);
         }
 
         /* Profile */
@@ -252,13 +247,7 @@
             font-size: 0.9rem;
         }
 
-        /*
-         * Main content
-         *
-         * On desktop the main column occupies the left side. The background
-         * fades to transparent so that the fixed canvas remains visible on
-         * the right.
-         */
+        /* Main content */
         .container {
             position: relative;
             z-index: 1;
@@ -266,25 +255,22 @@
             min-height: 100vh;
             margin: 0;
             padding:
-                6rem clamp(4rem, 8vw, 8rem)
-                4rem clamp(2rem, 7vw, 6rem);
+                6rem clamp(4rem, 8vw, 8rem) 4rem clamp(2rem, 7vw, 6rem);
 
             background:
-                linear-gradient(
-                    90deg,
+                linear-gradient(90deg,
                     rgba(255, 255, 255, 1) 0%,
                     rgba(255, 255, 255, 1) 82%,
                     rgba(255, 255, 255, 0.94) 90%,
-                    rgba(255, 255, 255, 0) 100%
-                );
+                    rgba(255, 255, 255, 0) 100%);
         }
 
-        .container > section {
+        .container>section {
             max-width: 760px;
             margin-bottom: 5rem;
         }
 
-        .container > section:last-child {
+        .container>section:last-child {
             margin-bottom: 0;
             padding-bottom: 3rem;
         }
@@ -365,6 +351,58 @@
             padding-left: 0 !important;
         }
 
+        /* --- LinkedIn Posts Section Styles --- */
+        .linkedin-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .linkedin-placeholder {
+            width: 100%;
+            max-width: 504px;
+            /* Standard LinkedIn iframe max width */
+            min-height: 550px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-faint);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .linkedin-placeholder iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .linkedin-loading-text {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.5;
+            }
+        }
+
         /* Tablet and mobile */
         @media (max-width: 900px) {
             .page-visual {
@@ -384,10 +422,14 @@
                 background: rgba(255, 255, 255, 0.94);
             }
 
-            .container > section {
+            .container>section {
                 max-width: 760px;
                 margin-right: auto;
                 margin-left: auto;
+            }
+
+            .linkedin-feed {
+                align-items: center;
             }
         }
 
@@ -415,7 +457,7 @@
                 padding: 4rem 1.5rem;
             }
 
-            .container > section {
+            .container>section {
                 margin-bottom: 4rem;
             }
         }
@@ -427,6 +469,59 @@
 
             .page-visual {
                 display: none;
+            }
+        }
+
+        /* Container for the injected posts */
+        #linkedin-feed {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Individual post wrapper */
+        .linkedin-post-wrapper {
+            width: 100%;
+            max-width: 504px;
+            /* Standard LinkedIn iframe width */
+            height: 500px;
+            /* Adjust based on your average post height */
+            background: rgba(255, 255, 255, 0.05);
+            /* Slight background while iframe loads */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .linkedin-post-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Sentinel styling */
+        #feed-sentinel {
+            text-align: center;
+            padding: 40px 0;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .loading-pulse span {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.4;
             }
         }
     </style>
@@ -442,10 +537,7 @@
     <!-- Header -->
     <header class="hero" id="home">
         <div class="hero-content">
-            <img
-                src="/assets/img/portrait.jpg"
-                alt="Amirabbas Asadi"
-                class="profile-img"
+            <img src="assets/portrait.jpg" alt="Amirabbas Asadi" class="profile-img"
                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23e0e0e0\'/%3E%3C/svg%3E'">
 
             <h1>Amirabbas Asadi</h1>
@@ -453,7 +545,8 @@
             <div class="subtitle">
                 Probabilistic Machine Learning<br>
                 <span class="subtitle-position">
-                    Research Scientist at <a style="text-decoration:none" href="https://unqi.org" target="_blank">UnQi</a>
+                    Research Scientist at <a style="text-decoration:none" href="https://unqi.org"
+                        target="_blank">UnQi</a>
                 </span>
             </div>
 
@@ -465,23 +558,15 @@
             </div>
 
             <div class="links" aria-label="Professional links">
-                <a
-                    href="https://www.linkedin.com/in/amirabbas-asadi/"
-                    target="_blank"
-                    rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/amirabbas-asadi/" target="_blank" rel="noopener noreferrer">
                     LinkedIn
                 </a>
 
-                <a
-                    href="https://github.com/amirabbasasadi"
-                    target="_blank"
-                    rel="noopener noreferrer">
+                <a href="https://github.com/amirabbasasadi" target="_blank" rel="noopener noreferrer">
                     GitHub
                 </a>
 
-                <a
-                    href="https://scholar.google.com/citations?user=cMNhb84AAAAJ&hl=en"
-                    target="_blank"
+                <a href="https://scholar.google.com/citations?user=cMNhb84AAAAJ&hl=en" target="_blank"
                     rel="noopener noreferrer">
                     Google Scholar
                 </a>
@@ -494,7 +579,7 @@
                     <li>
                         <strong>Probabilistic AI</strong>
                         <span>
-                            Probabilistic programming, Bayesian inference, geometry and physics of uncertainty
+                            Probabilistic programming, Bayesian inference
                         </span>
                     </li>
 
@@ -508,7 +593,7 @@
                     <li>
                         <strong>Stochastic Mathematics</strong>
                         <span>
-                            Gradient flows, optimal transport, information geometry, mean-field games
+                            Gradient flows, optimal transport, mean-field games, geometry and physics of uncertainty
                         </span>
                     </li>
                 </ul>
@@ -518,8 +603,6 @@
 
     <!-- Main content -->
     <main class="container">
-
-       
 
         <section id="education">
             <h2>Education</h2>
@@ -542,7 +625,8 @@
 
                 <ul class="bullet-list">
                     <li>
-                        Thesis: Rethinking Bayesian Reinforcement Learning [<a href="https://bayesianrl.github.io/" target="_blank">Homepage</a>]
+                        Thesis: Rethinking Bayesian Reinforcement Learning [<a href="https://bayesianrl.github.io/"
+                            target="_blank">Homepage</a>]
                     </li>
                 </ul>
             </div>
@@ -606,30 +690,30 @@
             </ul>
         </section>
 
-
         <section id="teaching">
             <h2>Talks &amp; Teaching</h2>
-        
+
             <ul class="bullet-list">
                 <li>
                     <strong>Probabilistic Machine Learning with Julia</strong> &mdash;
                     Kharazmi University, Faculty of Finance (2025).
-                    <a href="https://www.youtube.com/playlist?list=PLpIquQ_DMJSFr3_SXHe3ZbiZInTFaXugb" target="_blank" rel="noopener noreferrer">[YouTube Videos]</a>
+                    <a href="https://www.youtube.com/playlist?list=PLpIquQ_DMJSFr3_SXHe3ZbiZInTFaXugb" target="_blank"
+                        rel="noopener noreferrer">[YouTube Videos]</a>
                 </li>
-        
+
                 <li>
                     <strong>Probabilistic Programming for Machine Learning</strong> &mdash;
                     Sharif University of Technology (2024).
                     <a href="https://lnkd.in/p/dti2FVSr" target="_blank" rel="noopener noreferrer">[Slides]</a>
                     <a href="https://www.aparat.com/v/byde90e" target="_blank" rel="noopener noreferrer">[Video]</a>
                 </li>
-        
+
                 <li>
                     <strong>Deep Probabilistic Modeling with Normalizing Flows</strong> &mdash;
                     Sharif University of Technology (2023).
                     <a href="https://lnkd.in/p/dj_pE7S7" target="_blank" rel="noopener noreferrer">[Slides]</a>
                 </li>
-        
+
                 <li>
                     <strong>Bayesian Machine Learning</strong> &mdash;
                     Online lecture (2022).
@@ -648,7 +732,6 @@
                     <a href="https://www.aparat.com/v/mZpo6" target="_blank" rel="noopener noreferrer">[Slides]</a>
                 </li>
 
-        
                 <li>
                     <strong>Teaching Assistant</strong>:
                     Deep Generative Models
@@ -661,7 +744,6 @@
                 </li>
             </ul>
         </section>
-        
 
         <section id="honors">
             <h2>Honors &amp; Awards</h2>
@@ -704,10 +786,7 @@
 
             <div class="item">
                 <div class="item-title">
-                    <a
-                        href="https://bayesianrl.github.io/NonparametricVI.jl"
-                        target="_blank"
-                        rel="noopener noreferrer">
+                    <a href="https://bayesianrl.github.io/NonparametricVI.jl" target="_blank" rel="noopener noreferrer">
                         NonparametricVI.jl
                     </a>
                 </div>
@@ -720,10 +799,7 @@
 
             <div class="item">
                 <div class="item-title">
-                    <a
-                        href="https://amirabbasasadi.github.io/RockyML"
-                        target="_blank"
-                        rel="noopener noreferrer">
+                    <a href="https://amirabbasasadi.github.io/RockyML" target="_blank" rel="noopener noreferrer">
                         Zagros
                     </a>
                 </div>
@@ -736,19 +812,13 @@
 
             <div class="item">
                 <div class="item-title">
-                    <a
-                        href="https://github.com/DrSasanBarak/metats"
-                        target="_blank"
-                        rel="noopener noreferrer">
+                    <a href="https://github.com/DrSasanBarak/metats" target="_blank" rel="noopener noreferrer">
                         MetaTS
                     </a>
 
                     &amp;
 
-                    <a
-                        href="https://github.com/DrSasanBarak/AugmentTS"
-                        target="_blank"
-                        rel="noopener noreferrer">
+                    <a href="https://github.com/DrSasanBarak/AugmentTS" target="_blank" rel="noopener noreferrer">
                         AugmentTS
                     </a>
                 </div>
@@ -758,25 +828,43 @@
                     augmentation using deep generative models.
                 </div>
             </div>
+
+            <div class="item">
+                <div class="item-title">
+                    <a href="https://amirabbasasadi.github.io/neural-fractal/" target="_blank"
+                        rel="noopener noreferrer">
+                        Neural Fractal
+                    </a>
+                </div>
+
+                <div class="item-desc">
+                    Generating fractals using complex-valued neural networks.
+                </div>
+            </div>
         </section>
 
-        <div class="item">
-            <div class="item-title">
-                <a
-                    href="https://amirabbasasadi.github.io/neural-fractal/"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Neural Fractal
-                </a>
-            </div>
+        <!-- LinkedIn Posts Section -->
+        <section id="social" class="social-section">
+            <h2>Some of my LinkedIn Posts</h2>
 
-            <div class="item-desc">
-                Generating fractals using complex-valued neural networks.
+            <!-- Fallback for users with JavaScript disabled -->
+            <noscript>
+                <p>JavaScript is disabled. <a href="https://www.linkedin.com/in/amirabbas-asadi/" target="_blank">Click
+                        here to view my posts on LinkedIn.</a></p>
+            </noscript>
+
+            <!-- The container where JS will inject posts one by one -->
+            <div id="linkedin-feed"></div>
+
+            <!-- The "Sentinel" trigger that the IntersectionObserver watches -->
+            <div id="feed-sentinel" class="loading-pulse">
+                <span>Loading more posts...</span>
             </div>
-        </div>
+        </section>
 
     </main>
 
+    <!-- Canvas Animation Script -->
     <script>
         (() => {
             "use strict";
@@ -813,9 +901,6 @@
             const maxTrailLength = 36;
             const frameInterval = 1000 / 30;
 
-            /*
-             * Non-reversible component.
-             */
             const skewStrength = 22;
 
             function clamp(value, minimum, maximum) {
@@ -831,50 +916,93 @@
                 return t * t * (3 - 2 * t);
             }
 
-            /*
-             * Source density:
-             *     two broad Gaussian components.
-             *
-             * Target density:
-             *     three smaller Gaussian components located lower in the
-             *     viewport.
-             *
-             * Every parameter is interpolated, so the density is transported
-             * continuously instead of being replaced abruptly.
-             */
-            function getMixture(value) {
-                const t = smoothStep(value);
+            // --- NEW: Infinite Procedural Keyframe System ---
+            const maxComponents = 4;
+            const mixtureKeyframes = [
+                // t = 0 (Original Starting State: 2 active components)
+                [
+                    { x: -1.0, y: -1.0, sigma: 1.0, weight: 0.50 },
+                    { x: 1.0, y: 1.0, sigma: 1.0, weight: 0.50 },
+                    { x: 0.0, y: 0.0, sigma: 0.9, weight: 0.0 }, // Inactive
+                    { x: 0.0, y: 0.0, sigma: 1.0, weight: 0.0 }  // Inactive
+                ],
+                // t = 1 (Original Target State: 3 active components)
+                [
+                    { x: -1.20, y: 0.60, sigma: 0.66, weight: 0.36 },
+                    { x: 0.12, y: 1.52, sigma: 0.72, weight: 0.32 },
+                    { x: 1.25, y: 0.52, sigma: 0.62, weight: 0.32 },
+                    { x: 0.0, y: 0.0, sigma: 1.0, weight: 0.0 }  // Inactive
+                ]
+            ];
 
-                return [
-                    {
-                        x: lerp(-1.0, -1.20, t),
-                        y: lerp(-1.0, 0.60, t),
-                        sigma: lerp(1.0, 0.66, t),
-                        weight: lerp(0.50, 0.36, t)
-                    },
-                    {
-                        x: lerp(1.0, 0.12, t),
-                        y: lerp(1.0, 1.52, t),
-                        sigma: lerp(1.0, 0.72, t),
-                        weight: lerp(0.50, 0.32, t)
-                    },
-                    {
-                        x: lerp(0.0, 1.25, t),
-                        y: lerp(0.0, 0.52, t),
-                        sigma: lerp(0.9, 0.62, t),
+            function generateNextKeyframe(index) {
+                const prev = mixtureKeyframes[index - 1];
+                const next = [];
+                
+                // Randomly decide the next mixture size (2, 3, or 4 components)
+                const numActive = Math.floor(Math.random() * 3) + 2; 
+                let totalWeight = 0;
 
-                        /*
-                         * A nearly zero initial weight makes the third mode
-                         * appear gradually during transport.
-                         */
-                        weight: lerp(0.0001, 0.32, t)
+                for (let i = 0; i < maxComponents; i++) {
+                    if (i < numActive) {
+                        // If it's a new component waking up, spawn it near the center. 
+                        // If it was already active, drift it from its last position.
+                        const baseX = prev[i].weight > 0 ? prev[i].x : 0;
+                        const baseY = prev[i].weight > 0 ? prev[i].y : 0;
+
+                        // Random drift, clamped so they don't wander off screen
+                        const nx = clamp(baseX + (Math.random() * 2.0 - 1.0), -1.6, 1.6);
+                        const ny = clamp(baseY + (Math.random() * 2.0 - 1.0), -1.6, 1.6);
+                        
+                        const sigma = 0.5 + Math.random() * 0.7; // 0.5 to 1.2
+                        const weight = 0.2 + Math.random() * 0.8; 
+                        
+                        next.push({ x: nx, y: ny, sigma, weight });
+                        totalWeight += weight;
+                    } else {
+                        // Deactivate gracefully: stay in place and let weight interpolate to 0
+                        next.push({ x: prev[i].x, y: prev[i].y, sigma: prev[i].sigma, weight: 0 });
                     }
-                ];
+                }
+
+                // Normalize weights so the active ones sum to ~1.0
+                for (let i = 0; i < maxComponents; i++) {
+                    if (next[i].weight > 0) {
+                        next[i].weight /= totalWeight;
+                    }
+                }
+
+                mixtureKeyframes[index] = next;
             }
 
-            /*
-             * Compute grad U(x), where U = -log(density).
-             */
+            function getMixture(value) {
+                const t = Math.max(0, value);
+                const index = Math.floor(t);
+                const frac = t - index;
+                const st = smoothStep(frac);
+
+                // Generate new keyframes on the fly if the user scrolls into uncharted territory
+                while (mixtureKeyframes.length <= index + 1) {
+                    generateNextKeyframe(mixtureKeyframes.length);
+                }
+
+                const current = mixtureKeyframes[index];
+                const next = mixtureKeyframes[index + 1];
+                const result = [];
+
+                // Smoothly blend the current phase into the next
+                for (let i = 0; i < maxComponents; i++) {
+                    result.push({
+                        x: lerp(current[i].x, next[i].x, st),
+                        y: lerp(current[i].y, next[i].y, st),
+                        sigma: lerp(current[i].sigma, next[i].sigma, st),
+                        weight: lerp(current[i].weight, next[i].weight, st)
+                    });
+                }
+                return result;
+            }
+            // --- END NEW SYSTEM ---
+
             function gradientOfPotential(x, y, mixture) {
                 let densitySum = 0;
                 let gradientX = 0;
@@ -882,16 +1010,15 @@
 
                 for (let i = 0; i < mixture.length; i++) {
                     const component = mixture[i];
-                    const variance = component.sigma * component.sigma;
+                    
+                    // Skip zero-weight calculation to save CPU
+                    if (component.weight === 0) continue; 
 
+                    const variance = component.sigma * component.sigma;
                     const dx = x - component.x;
                     const dy = y - component.y;
                     const squaredDistance = dx * dx + dy * dy;
 
-                    /*
-                     * The 1 / variance term accounts for the normalizing
-                     * constant of a two-dimensional isotropic Gaussian.
-                     */
                     const density =
                         (component.weight / variance) *
                         Math.exp(-0.5 * squaredDistance / variance);
@@ -909,10 +1036,6 @@
                 };
             }
 
-            /*
-             * Four uniforms give a cheap approximately Gaussian random
-             * variable with unit variance.
-             */
             function approximateGaussian() {
                 return (
                     Math.random() +
@@ -927,12 +1050,8 @@
                 if (width <= 900) {
                     return width * 0.5;
                 }
-
-                /*
-                 * The visual moves slightly farther right as the main content
-                 * enters, leaving more room for the text column.
-                 */
-                return width * lerp(0.75, 0.80, transport);
+                // Modified: Clamp the parallax shift so it doesn't push the canvas offscreen endlessly
+                return width * lerp(0.75, 0.80, clamp(transport, 0, 1));
             }
 
             function getOriginY() {
@@ -943,10 +1062,6 @@
                 width = window.innerWidth;
                 height = window.innerHeight;
 
-                /*
-                 * Capping DPR prevents a large 3x or 4x canvas on high-density
-                 * displays while retaining adequate sharpness.
-                 */
                 deviceScale = Math.min(window.devicePixelRatio || 1, 1.5);
 
                 canvas.width = Math.round(width * deviceScale);
@@ -956,45 +1071,23 @@
                 canvas.style.height = `${height}px`;
 
                 context.setTransform(
-                    deviceScale,
-                    0,
-                    0,
-                    deviceScale,
-                    0,
-                    0
+                    deviceScale, 0, 0, deviceScale, 0, 0
                 );
 
                 scale = Math.min(width, height) / 6;
-
                 updateScrollTarget();
             }
 
             function updateScrollTarget() {
                 const heroHeight = hero.offsetHeight;
-
-                /*
-                 * Transport starts near the end of the hero and completes
-                 * during the first portion of the main content.
-                 */
                 const transportStart = heroHeight * 0.72;
-                const transportDistance = Math.max(
-                    window.innerHeight * 1.15,
-                    650
-                );
+                const transportDistance = Math.max(window.innerHeight * 1.15, 650);
+                const rawProgress = (window.scrollY - transportStart) / transportDistance;
 
-                const rawProgress =
-                    (window.scrollY - transportStart) / transportDistance;
-
-                targetTransport = clamp(rawProgress, 0, 1);
+                // Modified: Allow progression past 1.0 to drive infinite changes
+                targetTransport = Math.max(0, rawProgress);
             }
 
-            /*
-             * Lightweight contour rendering.
-             *
-             * These are Gaussian iso-density rings rather than a full
-             * marching-squares computation. They make the changing target
-             * readable without recalculating a large density grid.
-             */
             function drawDensityContours(mixture) {
                 const originX = getOriginX();
                 const originY = getOriginY();
@@ -1005,51 +1098,30 @@
                 for (let i = 0; i < mixture.length; i++) {
                     const component = mixture[i];
 
+                    // Safely ignore fading components that are near invisble
                     if (component.weight < 0.012) {
                         continue;
                     }
 
                     const centerX = originX + component.x * scale;
                     const centerY = originY + component.y * scale;
-
-                    const weightVisibility = Math.min(
-                        1,
-                        component.weight * 2.4
-                    );
-
+                    const weightVisibility = Math.min(1, component.weight * 2.4);
                     const ringCount = 8;
 
                     for (let ring = 0; ring < ringCount; ring++) {
                         const radiusLevel = 0.48 + ring * 0.36;
-                        const radius =
-                            radiusLevel * component.sigma * scale;
-
-                        const ringFade =
-                            1 - ring / (ringCount + 1);
-
-                        const opacity =
-                            0.22 *
-                            weightVisibility *
-                            ringFade;
+                        const radius = radiusLevel * component.sigma * scale;
+                        const ringFade = 1 - ring / (ringCount + 1);
+                        const opacity = 0.22 * weightVisibility * ringFade;
 
                         context.beginPath();
-                        context.arc(
-                            centerX,
-                            centerY,
-                            radius,
-                            0,
-                            Math.PI * 2
-                        );
-
-                        context.strokeStyle =
-                            `rgba(0, 0, 0, ${opacity})`;
-
-                        context.setLineDash([5, 5]); 
+                        context.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                        context.strokeStyle = `rgba(0, 0, 0, ${opacity})`;
+                        context.setLineDash([5, 5]);
                         context.stroke();
                         context.setLineDash([]);
                     }
                 }
-
                 context.restore();
             }
 
@@ -1061,11 +1133,6 @@
                 }
 
                 transportBy(delta) {
-                    /*
-                     * This small common advection term makes the cloud visibly
-                     * travel with the moving density. The potential gradient
-                     * then performs the local rearrangement.
-                     */
                     this.x += delta * 0.04;
                     this.y += delta * 0.78;
                 }
@@ -1076,75 +1143,36 @@
 
                     for (let i = 0; i < mixture.length; i++) {
                         randomChoice -= mixture[i].weight;
-
                         if (randomChoice <= 0) {
                             selected = mixture[i];
                             break;
                         }
                     }
 
-                    this.x =
-                        selected.x +
-                        approximateGaussian() * selected.sigma * 0.2;
-
-                    this.y =
-                        selected.y +
-                        approximateGaussian() * selected.sigma * 0.2;
-
+                    this.x = selected.x + approximateGaussian() * selected.sigma * 0.2;
+                    this.y = selected.y + approximateGaussian() * selected.sigma * 0.2;
                     this.history.length = 0;
                 }
 
                 update(mixture, elapsedMilliseconds) {
-                    this.history.push({
-                        x: this.x,
-                        y: this.y
-                    });
+                    this.history.push({ x: this.x, y: this.y });
 
                     if (this.history.length > maxTrailLength) {
                         this.history.shift();
                     }
 
-                    const frameScale = clamp(
-                        elapsedMilliseconds / 16.667,
-                        0.5,
-                        2.2
-                    );
-
+                    const frameScale = clamp(elapsedMilliseconds / 16.667, 0.5, 2.2);
                     const dt = 0.001 * frameScale;
                     const noiseScale = Math.sqrt(2 * dt) * 0.52;
+                    const gradient = gradientOfPotential(this.x, this.y, mixture);
 
-                    const gradient = gradientOfPotential(
-                        this.x,
-                        this.y,
-                        mixture
-                    );
+                    const driftX = -gradient.x + skewStrength * gradient.y;
+                    const driftY = -gradient.y - skewStrength * gradient.x;
 
-                    /*
-                     * Drift = -grad U + J grad U,
-                     * where J is a two-dimensional skew-symmetric matrix.
-                     */
-                    const driftX =
-                        -gradient.x +
-                        skewStrength * gradient.y;
+                    this.x += driftX * dt + noiseScale * approximateGaussian();
+                    this.y += driftY * dt + noiseScale * approximateGaussian();
 
-                    const driftY =
-                        -gradient.y -
-                        skewStrength * gradient.x;
-
-                    this.x +=
-                        driftX * dt +
-                        noiseScale * approximateGaussian();
-
-                    this.y +=
-                        driftY * dt +
-                        noiseScale * approximateGaussian();
-
-                    if (
-                        !Number.isFinite(this.x) ||
-                        !Number.isFinite(this.y) ||
-                        Math.abs(this.x) > 6 ||
-                        Math.abs(this.y) > 6
-                    ) {
+                    if (!Number.isFinite(this.x) || !Number.isFinite(this.y) || Math.abs(this.x) > 6 || Math.abs(this.y) > 6) {
                         this.reset(mixture);
                     }
                 }
@@ -1155,30 +1183,15 @@
 
                     if (this.history.length > 1) {
                         context.beginPath();
-
                         const start = this.history[0];
+                        context.moveTo(originX + start.x * scale, originY + start.y * scale);
 
-                        context.moveTo(
-                            originX + start.x * scale,
-                            originY + start.y * scale
-                        );
-
-                        for (
-                            let i = 1;
-                            i < this.history.length;
-                            i++
-                        ) {
+                        for (let i = 1; i < this.history.length; i++) {
                             const point = this.history[i];
-
-                            context.lineTo(
-                                originX + point.x * scale,
-                                originY + point.y * scale
-                            );
+                            context.lineTo(originX + point.x * scale, originY + point.y * scale);
                         }
 
-                        context.strokeStyle =
-                            "rgba(0, 0, 0, 0.26)";
-
+                        context.strokeStyle = "rgba(0, 0, 0, 0.26)";
                         context.lineWidth = 1.35;
                         context.lineCap = "round";
                         context.lineJoin = "round";
@@ -1186,59 +1199,27 @@
                     }
 
                     context.beginPath();
-
-                    context.arc(
-                        originX + this.x * scale,
-                        originY + this.y * scale,
-                        2.35,
-                        0,
-                        Math.PI * 2
-                    );
-
+                    context.arc(originX + this.x * scale, originY + this.y * scale, 2.35, 0, Math.PI * 2);
                     context.fillStyle = "rgba(0, 0, 0, 0.82)";
                     context.fill();
                 }
             }
 
-            const particles = Array.from(
-                { length: particleCount },
-                () => new Particle()
-            );
+            const particles = Array.from({ length: particleCount }, () => new Particle());
 
             function render(timestamp) {
                 animationFrame = requestAnimationFrame(render);
 
-                /*
-                 * Rendering at approximately 30 FPS is sufficient for the
-                 * thin trails and significantly lowers CPU usage.
-                 */
-                if (
-                    lastFrameTime !== 0 &&
-                    timestamp - lastFrameTime < frameInterval
-                ) {
+                if (lastFrameTime !== 0 && timestamp - lastFrameTime < frameInterval) {
                     return;
                 }
 
-                const elapsed =
-                    lastFrameTime === 0
-                        ? frameInterval
-                        : Math.min(timestamp - lastFrameTime, 45);
-
+                const elapsed = lastFrameTime === 0 ? frameInterval : Math.min(timestamp - lastFrameTime, 45);
                 lastFrameTime = timestamp;
 
-                /*
-                 * Smoothly approach the scroll-selected density, so a fast
-                 * wheel movement does not cause an abrupt jump.
-                 */
-                const response =
-                    1 - Math.exp(-elapsed / 180);
-
-                transport +=
-                    (targetTransport - transport) * response;
-
-                const transportDelta =
-                    transport - previousTransport;
-
+                const response = 1 - Math.exp(-elapsed / 180);
+                transport += (targetTransport - transport) * response;
+                const transportDelta = transport - previousTransport;
                 previousTransport = transport;
 
                 const mixture = getMixture(transport);
@@ -1248,11 +1229,12 @@
 
                 for (let i = 0; i < particles.length; i++) {
                     const particle = particles[i];
-
+                    
+                    // We only apply the vertical parallax "wind" effect on scroll change
                     if (Math.abs(transportDelta) > 1e-6) {
                         particle.transportBy(transportDelta);
                     }
-
+                    
                     particle.update(mixture, elapsed);
                     particle.draw();
                 }
@@ -1271,30 +1253,91 @@
                 }
             }
 
-            window.addEventListener("scroll", updateScrollTarget, {
-                passive: true
-            });
-
-            window.addEventListener("resize", resizeCanvas, {
-                passive: true
-            });
-
-            document.addEventListener(
-                "visibilitychange",
-                handleVisibilityChange
-            );
+            window.addEventListener("scroll", updateScrollTarget, { passive: true });
+            window.addEventListener("resize", resizeCanvas, { passive: true });
+            document.addEventListener("visibilitychange", handleVisibilityChange);
 
             resizeCanvas();
-
-            /*
-             * If the browser restored a scrolled page, start from the
-             * corresponding density rather than animating from zero.
-             */
             transport = targetTransport;
             previousTransport = transport;
-
             animationFrame = requestAnimationFrame(render);
         })();
+    </script>
+
+
+    <!-- LinkedIn Intersection Observer Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const linkedInPosts = [
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7432752772405612544?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7468788566614208512?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7433227205754638338?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7432347347747069952?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7431413748617252864?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7431080578571063296?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7429818195164753920?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7428891823210885120?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7428165477463412736?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7427386947251142658?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7426916953652391936?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7426534951413661696?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7425871317083582464?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7425137997844553728?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7424448139136495616?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7424040924088905728?collapsed=1",
+                "https://www.linkedin.com/embed/feed/update/urn:li:share:7412513840296411136?collapsed=1"
+            ];
+
+            const feedContainer = document.getElementById('linkedin-feed');
+            const sentinel = document.getElementById('feed-sentinel');
+            let currentPostIndex = 0;
+
+            // 2. Setup the Observer to watch the sentinel at the bottom
+            const observer = new IntersectionObserver((entries) => {
+                // If the sentinel enters the viewport (plus 300px margin)
+                if (entries[0].isIntersecting) {
+                    loadNextPost();
+                }
+            }, {
+                rootMargin: "300px" // Starts loading slightly before the user reaches it
+            });
+
+            // 3. Function to inject the next post
+            function loadNextPost() {
+                // If we have loaded all posts, stop observing and hide the loading text
+                if (currentPostIndex >= linkedInPosts.length) {
+                    observer.unobserve(sentinel);
+                    sentinel.style.display = 'none';
+                    return;
+                }
+
+                // Create the wrapper div
+                const wrapper = document.createElement('div');
+                wrapper.className = 'linkedin-post-wrapper';
+
+                // Create the iframe
+                const iframe = document.createElement('iframe');
+                iframe.src = linkedInPosts[currentPostIndex];
+                iframe.allowFullscreen = true;
+                iframe.title = "Embedded LinkedIn Post";
+                iframe.frameborder = "0";
+                
+
+                // Inject into the page
+                wrapper.appendChild(iframe);
+                feedContainer.appendChild(wrapper);
+
+                // Move to the next post for the next time the user scrolls down
+                currentPostIndex++;
+            }
+
+            // 4. Start observing the sentinel
+            if (sentinel && linkedInPosts.length > 0) {
+                observer.observe(sentinel);
+            } else if (sentinel) {
+                sentinel.style.display = 'none'; // Hide if no posts exist
+            }
+        });
     </script>
 </body>
 
